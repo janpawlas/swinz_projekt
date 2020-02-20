@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="swinz_projekt:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/swinz_projekt_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="swinz_projekt/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="swinz_projekt" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/../../../../03Z_semestr/OOPR3/jstl 1.2/jstl-1.2.jar" />
+          <element id="library" level="project" name="JPA 2.0-2.0" />
+          <element id="file-copy" path="C:/Webdev/db-derby-10.14.2.0-bin/lib/derbyclient.jar" />
+          <element id="file-copy" path="C:/Webdev/eclipselink/jlib/eclipselink.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
