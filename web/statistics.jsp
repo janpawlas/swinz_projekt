@@ -7,22 +7,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
-  <head>
+<head>
     <title>Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-  <main>
+</head>
+<body>
+<main>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="index.jsp">Home</a>
-          <a class="nav-item nav-link" href="sensor.jsp">Sensors</a>
-          <a class="nav-item nav-link" href="statistics.jsp">Statistics</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="index.jsp">Home</a>
+                <a class="nav-item nav-link" href="sensor.jsp">Sensors</a>
+                <a class="nav-item nav-link active" href="statistics.jsp">Statistics</a>
+            </div>
         </div>
-      </div>
     </nav>
 
-  </main>
-  </body>
+</main>
+</body>
 </html>
