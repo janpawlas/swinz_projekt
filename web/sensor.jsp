@@ -33,9 +33,47 @@
             </div>
             <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="someRoom" role="tabpanel" >tady neco je </div>
-                    <div class="tab-pane fade" id="someRoom2" role="tabpanel" >tady nic neni</div>
+                    <div class="tab-pane fade show active" id="someRoom" role="tabpanel" >
+                        <h2>Living Room</h2>
+                        <div class="card" style="width: 60%">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Temperature: 25 °C</li>
+                                <li class="list-group-item">Current consumption: 5 W</li>
+                                <li class="list-group-item">AVG lights ON per day: 90 minutes</li>
+                            </ul>
+                            <form class="form-inline mt-4" action="setTemperature" method="post">
+                                <div class="form-group mb-2">
+                                    <input type="hidden" readonly hidden id="roomId" value="1">
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="wantedTemp" class="sr">Temperature: </label>
+                                    <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp" value="35">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="someRoom2" role="tabpanel" >
+                        <h2>Kitchen</h2>
+                        <div class="card" style="width: 60%">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Temperature: 35 °C</li>
+                                <li class="list-group-item">Current consumption: 50 W</li>
+                                <li class="list-group-item">AVG lights ON per day: 360 minutes</li>
+                            </ul>
+                            <form class="form-inline mt-4" action="setTemperature" method="post">
+                                <div class="form-group mb-2">
+                                    <input type="hidden" readonly hidden id="roomId2" value="1">
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="wantedTemp" class="sr">Temperature: </label>
+                                    <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp2" value="35">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">Save</button>
+                            </form>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>

@@ -22,7 +22,29 @@
         </div>
       </div>
     </nav>
-
+    <div class="container mt-6">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Heat</th>
+          <th scope="col">Room</th>
+          <th scope="col">Current temp.</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td scope="row">ON</td>
+          <td>Living room</td>
+          <td>25</td>
+        </tr>
+        <tr>
+          <td scope="row">OFF</td>
+          <td>Kitchen</td>
+          <td>30</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </main>
   </body>
 </html>
