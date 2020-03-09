@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>cz.osu.db.entity.DataEntity</class>
+        <class>cz.osu.db.entity.RoomEntity</class>
+        <class>cz.osu.db.entity.SensorEntity</class>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:derby://localhost:1527/swinzDB;create=true"/>
+            <property name="eclipselink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+            <property name="eclipselink.jdbc.user" value=""/>
+            <property name="eclipselink.jdbc.password" value=""/>
+        </properties>
+    </persistence-unit>
+</persistence>
