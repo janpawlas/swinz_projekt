@@ -2,6 +2,9 @@
   <library name="JPA 2.0-2.0">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/javax.persistence.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/gson-2.8.6.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/commons-io-2.6.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/json-20190722.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
