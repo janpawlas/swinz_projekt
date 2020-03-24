@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ROOM", schema = "SA")
+@Table(name = "ROOM", schema = "SA", catalog = "")
 public class RoomEntity {
     private int id;
     private String name;
+    private double temp;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,13 +35,23 @@ public class RoomEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoomEntity that = (RoomEntity) o;
-        return id == that.id &&
-                Objects.equals(name, that.name);
+        RoomEntity entity = (RoomEntity) o;
+        return id == entity.id &&
+                Objects.equals(name, entity.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    @Basic
+    @Column(name = "TEMP", nullable = false, precision = 0)
+    public double getTemp() {
+        return temp;
+    }
+
+    public void setTemp(double temp) {
+        this.temp = temp;
     }
 }

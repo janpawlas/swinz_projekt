@@ -4,12 +4,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "SENSOR", schema = "SA")
+@Table(name = "SENSOR", schema = "SA", catalog = "")
 public class SensorEntity {
     private int id;
     private String type;
     private Integer room;
-    private RoomEntity roomByRoom;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,15 +54,5 @@ public class SensorEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, type, room);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ROOM", referencedColumnName = "ID")
-    public RoomEntity getRoomByRoom() {
-        return roomByRoom;
-    }
-
-    public void setRoomByRoom(RoomEntity roomByRoom) {
-        this.roomByRoom = roomByRoom;
     }
 }

@@ -16,9 +16,9 @@ app.get('/', (req, res) => {
 //
 
 const sensors = [
-    { id: 1, name: 'Temperature Sensor', room: 1 },
-    { id: 2, name: 'Electricity Sensor', room: 1 },
-    { id: 3, name: 'Temperature Sensor', room: 2 }
+    { id: 1, name: 'Temperature Sensor', room: 1, data: 20 },
+    { id: 2, name: 'Electricity Sensor', room: 1, data: 1 },
+    { id: 3, name: 'Temperature Sensor', room: 2, data: 25 }
 ];
 
 app.get('/api/sensors', (req, res) => {
@@ -39,7 +39,8 @@ app.post('/api/sensors', (req, res) => {
     const sensor = {
         id: sensors.length + 1,
         name: req.body.name,
-        room: req.body.room
+        room: req.body.room,
+        data: req.body.data
     };
 
     sensors.push(sensor);
@@ -56,6 +57,7 @@ app.put('/api/sensors/:id', (req, res) => {
 
     sensor.name = req.body.name;
     sensor.room = req.body.room;
+    sensor.data = req.body.data;
     res.send(sensor);
 });
 
@@ -72,7 +74,8 @@ app.del('/api/sensors/:id', (req, res) => {
 function validateSensor(sensor) {
     const schema = {
         name: Joi.string().min(3).required(),
-        room: Joi.string().min(3).required()
+        room: Joi.string().min(3).required(),
+        data: Joi.number().integer().min(0).max(50)
     };
 
     return Joi.validate(sensor, schema);

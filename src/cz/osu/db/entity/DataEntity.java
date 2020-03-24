@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DATA", schema = "SA")
+@Table(name = "DATA", schema = "SA", catalog = "")
 public class DataEntity {
     private int id;
     private Integer sensor;

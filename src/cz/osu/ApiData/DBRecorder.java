@@ -1,3 +1,5 @@
+package cz.osu.ApiData;
+
 import java.io.IOException;
 import java.util.TimerTask;
 
@@ -22,5 +24,5 @@ public class DBRecorder extends TimerTask {
 
 /*
 Timer timer = new Timer();
-timer.schedule(new DBRecorder(), 0, 5000);
+timer.schedule(new cz.osu.ApiData.DBRecorder(), 0, 5000);
  */

@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="roomService" class="cz.osu.services.RoomService" scope="request"/>
+<jsp:useBean id="dataParser" class="cz.osu.ApiData.DataParser" scope="request"/>
 <html>
 <head>
     <title>Dashboard</title>
@@ -25,55 +28,37 @@
     <div class="container mt-6">
         <div class="row">
             <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="someRoomTab" data-toggle="pill" href="#someRoom" role="tab" aria-selected="true">some room</a>
-                    <a class="nav-link" id="someRoomTab2" data-toggle="pill" href="#someRoom2" role="tab">some room 2</a>
-
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
+                    <c:forEach var="room" items="${roomService.list}">
+                    <a class="nav-link <c:if test="${room.id == 1}">active</c:if>" id="${room.name}tab" data-toggle="pill" href="#room${room.id}" role="tab" <c:if test="${room.id == 1}"> aria-selected="true"</c:if> >${room.name}</a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="col-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="someRoom" role="tabpanel" >
-                        <h2>Living Room</h2>
-                        <div class="card" style="width: 60%">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Temperature: 25 °C</li>
-                                <li class="list-group-item">Current consumption: 5 W</li>
-                                <li class="list-group-item">AVG lights ON per day: 90 minutes</li>
-                            </ul>
-                            <form class="form-inline mt-4" action="setTemperature" method="post">
-                                <div class="form-group mb-2">
-                                    <input type="hidden" readonly hidden id="roomId" value="1">
-                                </div>
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <label for="wantedTemp" class="sr">Temperature: </label>
-                                    <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp" value="35">
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-2">Save</button>
-                            </form>
+                    <c:forEach var="room" items="${roomService.list}">
+                        <div class="tab-pane fade show <c:if test="${room.id == 1}">active</c:if>" id="room${room.id}" role="tabpanel" >
+                            <h2>${room.name}</h2>
+                            <div class="card" style="width: 60%">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Temperature: ${dataParser.getTempByRoom(room.id).data} °C</li>
+                                    <li class="list-group-item">Current consumption: ${dataParser.getPowerByRoom(room.id).data} W</li>
+                                    <li class="list-group-item">AVG power consumption per day: ## W</li>
+                                </ul>
+                                <form class="form-inline mt-4" action="setTemperature" method="post">
+                                    <div class="form-group mb-2">
+                                        <input type="hidden" readonly hidden id="roomId" value="${room.id}">
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="wantedTemp" class="sr">Temperature: </label>
+                                        <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp" value="${room.temp}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="someRoom2" role="tabpanel" >
-                        <h2>Kitchen</h2>
-                        <div class="card" style="width: 60%">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Temperature: 35 °C</li>
-                                <li class="list-group-item">Current consumption: 50 W</li>
-                                <li class="list-group-item">AVG lights ON per day: 360 minutes</li>
-                            </ul>
-                            <form class="form-inline mt-4" action="setTemperature" method="post">
-                                <div class="form-group mb-2">
-                                    <input type="hidden" readonly hidden id="roomId" value="1">
-                                </div>
-                                <div class="form-group mx-sm-3 mb-2">
-                                    <label for="wantedTemp" class="sr">Temperature: </label>
-                                    <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp" value="35">
-                                </div>
-                                <button type="submit" class="btn btn-primary mb-2">Save</button>
-                            </form>
-                        </div>
+                    </c:forEach>
 
-                    </div>
                 </div>
             </div>
         </div>
