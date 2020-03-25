@@ -1,4 +1,4 @@
-package servlet;
+package cz.osu.servlet;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -7,7 +7,7 @@ import cz.osu.ApiData.DBRecorder;
 
 public class WebAppServletContextListener implements ServletContextListener {
 
-    // Public constructor is required by servlet spec
+    // Public constructor is required by cz.osu.servlet spec
     public WebAppServletContextListener() {
     }
 

@@ -15,14 +15,22 @@ app.get('/', (req, res) => {
 // Queries and validation for Sensor
 //
 
-const sensors = [
-    { id: 1, name: 'Temperature Sensor', room: 1, data: 20 },
-    { id: 2, name: 'Electricity Sensor', room: 1, data: 1 },
-    { id: 3, name: 'Temperature Sensor', room: 2, data: 25 }
-];
+function getRandomSensors() {
+    const sensors = [
+        { id: 1, name: 'Temperature Sensor', room: 1, data: getRandomInt(5, 40) },
+        { id: 2, name: 'Electricity Sensor', room: 1, data: getRandomInt(0, 200) },
+        { id: 3, name: 'Temperature Sensor', room: 2, data: getRandomInt(5, 40) }
+    ];
+    return sensors;
+}
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 app.get('/api/sensors', (req, res) => {
-    res.send(sensors);
+    res.send(getRandomSensors());
 });
 
 app.get('/api/sensors/:id', (req, res) => {

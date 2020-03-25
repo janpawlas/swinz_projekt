@@ -42,16 +42,27 @@
                             <div class="card" style="width: 60%">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">Temperature: ${dataParser.getTempByRoom(room.id).data} °C</li>
-                                    <li class="list-group-item">Current consumption: ${dataParser.getPowerByRoom(room.id).data} W</li>
+                                    <li class="list-group-item">Heat:
+                                        <c:if test="${room.temp > dataParser.getTempByRoom(room.id).data}">
+                                            ON
+                                        </c:if>
+                                        <c:if test="${room.temp <= dataParser.getTempByRoom(room.id).data}">
+                                            OFF
+                                        </c:if>
+                                    </li>
+                                    <li class="list-group-item">Current consumption:
+                                        <c:if test="${dataParser.getPowerByRoom(room.id).data == null}">
+                                            0
+                                        </c:if>${dataParser.getPowerByRoom(room.id).data} W</li>
                                     <li class="list-group-item">AVG power consumption per day: ## W</li>
                                 </ul>
                                 <form class="form-inline mt-4" action="setTemperature" method="post">
                                     <div class="form-group mb-2">
-                                        <input type="hidden" readonly hidden id="roomId" value="${room.id}">
+                                        <input type="hidden" readonly hidden name="roomId" id="roomId" value="${room.id}">
                                     </div>
                                     <div class="form-group mx-sm-3 mb-2">
                                         <label for="wantedTemp" class="sr">Temperature: </label>
-                                        <input type="number" class="form-control" i min="0" max="50" step="0.1" id="wantedTemp" value="${room.temp}">
+                                        <input type="number" class="form-control" i min="0" max="50" step="0.1" name="wantedTemp" id="wantedTemp" value="${room.temp}">
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Save</button>
                                 </form>

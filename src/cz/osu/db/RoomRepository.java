@@ -16,4 +16,14 @@ public class RoomRepository extends Repository<RoomEntity> {
         List<RoomEntity> ret = q.getResultList();
         return ret;
     }
+    public void update (RoomEntity entity){
+        try {
+            getEm().getTransaction().begin();
+            getEm().merge(entity);
+            getEm().getTransaction().commit();
+        }catch (Exception ex){
+            getEm().getTransaction().rollback();
+            throw new RepositoryException("Failed to update entity id=" + entity.getId(), ex);
+        }
+    }
 }

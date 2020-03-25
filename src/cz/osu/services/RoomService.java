@@ -23,4 +23,10 @@ public class RoomService {
     public RoomEntity getById(int id){
         return roomRepository.getByID(id);
     }
+    public RoomEntity updateTemp(int roomId, double temp){
+        RoomEntity entity = roomRepository.getByID(roomId);
+        entity.setTemp(temp);
+        roomRepository.update(entity);
+        return entity;
+    }
 }

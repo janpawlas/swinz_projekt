@@ -42,7 +42,7 @@
                   <c:if test="${room.temp > dataParser.getTempByRoom(room.id).data}">
                     ON
                   </c:if>
-                  <c:if test="${room.temp < dataParser.getTempByRoom(room.id).data}">
+                  <c:if test="${room.temp <= dataParser.getTempByRoom(room.id).data}">
                     OFF
                   </c:if>
                 </td>
