@@ -39,12 +39,7 @@
         <c:forEach var="room" items="${roomService.list}">
             <tr>
                 <td scope="row">
-                  <c:if test="${room.temp > dataParser.getTempByRoom(room.id).data}">
-                    ON
-                  </c:if>
-                  <c:if test="${room.temp < dataParser.getTempByRoom(room.id).data}">
-                    OFF
-                  </c:if>
+                  ${dataParser.getHeat(room.temp, dataParser.getTempByRoom(room.id).data)}
                 </td>
                 <td>${room.name}</td>
                 <td>${dataParser.getTempByRoom(room.id).data}</td>

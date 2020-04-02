@@ -15,23 +15,36 @@ app.get('/', (req, res) => {
 // Queries and validation for Sensor
 //
 
-function getRandomSensors() {
-    const sensors = [
-        { id: 1, name: 'Temperature Sensor', room: 1, data: getRandomInt(5, 40) },
-        { id: 2, name: 'Electricity Sensor', room: 1, data: getRandomInt(0, 200) },
-        { id: 3, name: 'Temperature Sensor', room: 2, data: getRandomInt(5, 40) }
-    ];
+const sensors = [
+    { id: 1, name: 'Temperature Sensor', room: 1, data: getRandomInt(5, 40) },
+    { id: 2, name: 'Electricity Sensor', room: 1, data: getRandomInt(0, 200) },
+    { id: 3, name: 'Temperature Sensor', room: 2, data: getRandomInt(5, 40) }
+];
+
+function getUpdatedSensors() {
+    sensors.forEach(sensor => {
+        switch(sensor.name) {
+            case 'Electricity Sensor':
+                sensor.data = getRandomInt(0, 200);
+                break;
+            case 'Temperature Sensor':
+                sensor.data = getRandomInt(5, 40);
+                break;
+            default:
+        }
+    });
     return sensors;
 }
+
+app.get('/api/sensors', (req, res) => {
+    res.send(getUpdatedSensors());
+});
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-app.get('/api/sensors', (req, res) => {
-    res.send(getRandomSensors());
-});
 
 app.get('/api/sensors/:id', (req, res) => {
     const sensor = sensors.find(s => s.id === parseInt(req.params.id));

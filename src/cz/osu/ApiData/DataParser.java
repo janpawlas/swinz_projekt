@@ -76,5 +76,11 @@ public class DataParser {
         }
         return null;
     }
+    public String getHeat(double roomTemp, double currentTemp){
+        if (currentTemp >= roomTemp)
+            return "OFF";
+        else
+            return "ON";
+    }
 }
 

@@ -41,14 +41,9 @@
                             <h2>${room.name}</h2>
                             <div class="card" style="width: 60%">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Temperature: ${dataParser.getTempByRoom(room.id).data} °C</li>
-                                    <li class="list-group-item">Heat:
-                                        <c:if test="${room.temp > dataParser.getTempByRoom(room.id).data}">
-                                            ON
-                                        </c:if>
-                                        <c:if test="${room.temp <= dataParser.getTempByRoom(room.id).data}">
-                                            OFF
-                                        </c:if>
+                                    <c:set var="currentTemp" value="${dataParser.getTempByRoom(room.id).data}"/>
+                                    <li class="list-group-item">Temperature: ${currentTemp} °C</li>
+                                    <li class="list-group-item">Heat: ${dataParser.getHeat(room.temp, currentTemp)}
                                     </li>
                                     <li class="list-group-item">Current consumption:
                                         <c:if test="${dataParser.getPowerByRoom(room.id).data == null}">

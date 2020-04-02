@@ -4,10 +4,11 @@ import cz.osu.db.DataRepository;
 import cz.osu.db.entity.DataEntity;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 public class DataService {
-    public DataRepository dataRepository;
+    private DataRepository dataRepository;
 
     public DataService() {
         dataRepository = new DataRepository();
@@ -23,5 +24,18 @@ public class DataService {
     }
     public List<DataEntity> getListBySensorId(int sensorId){
         return dataRepository.getListBySensorId(sensorId);
+    }
+
+    public double getPowerConsumptionPerMonth(int sensorId, int month, int year){
+        List<DataEntity> data = getListBySensorId(sensorId);
+        double ret = 0.0;
+        Calendar cal = Calendar.getInstance();
+        for (DataEntity entity : data) {
+            cal.setTimeInMillis(entity.getTime().getTime());
+            if (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) == month){
+                ret += entity.getValue();
+            }
+        }
+        return ret;
     }
 }
