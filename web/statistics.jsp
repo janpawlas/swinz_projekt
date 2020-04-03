@@ -31,13 +31,17 @@
         <canvas id="myChart" width="500" height="500"></canvas>
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
+            var consumption = [];
+            <c:forEach var="item" items="${graphService.powerConsumptionPerYear}">
+                consumption.push(${item})
+            </c:forEach>
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [{
                         label: 'Power Consumption',
-                        data: [12, 19, 3, 5, 2, 3, 14, 15, 16, 14, 11, 5],
+                        data: consumption,
                         backgroundColor: [
                             'rgba(0, 0, 255, 0.2)',
                             'rgba(0, 127, 255, 0.2)',
@@ -80,9 +84,6 @@
                     }
                 }
             });
-            <c:forEach var="item" items="${graphService.powerConsumption}">
-            //data.push
-            </c:forEach>
         </script>
     </div>
 </main>
