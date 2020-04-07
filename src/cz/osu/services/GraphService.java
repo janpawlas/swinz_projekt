@@ -7,6 +7,7 @@ import cz.osu.db.entity.SensorEntity;
 import java.awt.*;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.List;
@@ -68,4 +69,30 @@ public class GraphService {
         }
         return elSensors;
     }
+
+    private List<SensorEntity> getLightSensorsForRoom(int roomId){
+        List<SensorEntity> allSensors = sensorService.getList();
+        List<SensorEntity> lightSensors = new ArrayList<>();
+        for (SensorEntity sensor : allSensors) {
+            if (sensor.getType().equals("Light Sensor") && sensor.getRoom() == roomId)
+                lightSensors.add(sensor);
+        }
+        return lightSensors;
+    }
+    public List<Double> getLightsOnPerYearPerSensor(int roomId){
+        List<SensorEntity> sensors = getLightSensorsForRoom(roomId);
+        List<Double> lights = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            double value = 0.0;
+            Month month = Month.of(i+1);
+            double lengthOfMonth = month.length(false) * 24 * 60;
+            for (SensorEntity sensor : sensors) {
+                value += dataService.getLightsOnPerMonth(sensor.getId(), i, this.year);
+            }
+            lights.add(value);
+        }
+        System.out.println(lights);
+        return lights;
+    }
+
 }

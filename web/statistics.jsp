@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <jsp:useBean id="graphService" class="cz.osu.services.GraphService" scope="request"/>
+<jsp:useBean id="roomService" class="cz.osu.services.RoomService" scope="request"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -27,64 +28,136 @@
     </nav>
 
     <div class="container">
-
-        <canvas id="myChart" width="500" height="500"></canvas>
-        <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var consumption = [];
-            <c:forEach var="item" items="${graphService.powerConsumptionPerYear}">
+        <div>
+            <h2>Spotřeba energie za jednotlivé měsíce</h2>
+            <canvas id="myChart" width="500" height="500"></canvas>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var consumption = [];
+                <c:forEach var="item" items="${graphService.powerConsumptionPerYear}">
                 consumption.push(${item})
-            </c:forEach>
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [{
-                        label: 'Power Consumption',
-                        data: consumption,
-                        backgroundColor: [
-                            'rgba(0, 0, 255, 0.2)',
-                            'rgba(0, 127, 255, 0.2)',
-                            'rgba(127, 255, 0, 0.2)',
-                            'rgba(0, 255, 0, 0.2)',
-                            'rgba(0, 255, 127, 0.2)',
-                            'rgba(255, 127, 0, 0.2)',
-                            'rgba(255, 0, 0, 0.2)',
-                            'rgba(255, 255, 0, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(0, 255, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(0, 0, 255, 1)',
-                            'rgba(0, 127, 255, 1)',
-                            'rgba(127, 255, 0, 1)',
-                            'rgba(0, 255, 0, 1)',
-                            'rgba(0, 255, 127, 1)',
-                            'rgba(255, 127, 0, 1)',
-                            'rgba(255, 0, 0, 1)',
-                            'rgba(255, 255, 0, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(0, 255, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
+                </c:forEach>
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        datasets: [{
+                            label: 'Power Consumption',
+                            data: consumption,
+                            backgroundColor: [
+                                'rgba(0, 0, 255, 0.2)',
+                                'rgba(0, 127, 255, 0.2)',
+                                'rgba(127, 255, 0, 0.2)',
+                                'rgba(0, 255, 0, 0.2)',
+                                'rgba(0, 255, 127, 0.2)',
+                                'rgba(255, 127, 0, 0.2)',
+                                'rgba(255, 0, 0, 0.2)',
+                                'rgba(255, 255, 0, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(0, 255, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 0, 255, 1)',
+                                'rgba(0, 127, 255, 1)',
+                                'rgba(127, 255, 0, 1)',
+                                'rgba(0, 255, 0, 1)',
+                                'rgba(0, 255, 127, 1)',
+                                'rgba(255, 127, 0, 1)',
+                                'rgba(255, 0, 0, 1)',
+                                'rgba(255, 255, 0, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(0, 255, 255, 1)'
+                            ],
+                            borderWidth: 1
                         }]
+                    },
+                    options: {
+                        responsive: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
-                }
-            });
+                });
+            </script>
+        </div>
+        <div>
+            <h2>Průměrná doba svícené za jednotlivé měsíce</h2>
+            <canvas id="myChart1" width="800" height="500"></canvas>
+    <script>
+    var canvas = document.getElementById("myChart1");
+    var ctx = canvas.getContext('2d');
+    <c:forEach var="room" items="${roomService.list}">
+        var room${room.id} = [];
+        <c:forEach var="item" items="${graphService.getLightsOnPerYearPerSensor(room.id)}">
+            room${room.id}.push(${item});
+        </c:forEach>
+    </c:forEach>
+        Chart.defaults.global.defaultFontColor = 'black';
+        Chart.defaults.global.defaultFontSize = 16;
+
+        var data = {
+        labels: ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+
+        <c:forEach var="room" items="${roomService.list}">
+            {
+            label: "${room.name}",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(225,0,0,0.4)",
+            borderColor: "red",
+            borderCapStyle: 'square',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "black",
+            pointBackgroundColor: "white",
+            pointBorderWidth: 1,
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: "yellow",
+            pointHoverBorderColor: "brown",
+            pointHoverBorderWidth: 2,
+            pointRadius: 4,
+            pointHitRadius: 10,
+
+            data: room${room.id},
+            spanGaps: true,
+            },
+        </c:forEach>
+        ]
+        };
+
+        var options = {
+        responsive: false,
+        scales: {
+        yAxes: [{
+        ticks: {
+        beginAtZero:true
+        },
+        scaleLabel: {
+        display: true,
+        labelString: 'Lights on',
+        fontSize: 20
+        }
+        }]
+        }
+        };
+
+        var myBarChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+        });
         </script>
+        </div>
     </div>
 </main>
 </body>

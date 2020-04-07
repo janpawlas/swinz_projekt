@@ -38,4 +38,18 @@ public class DataService {
         }
         return ret;
     }
+    public double getLightsOnPerMonth(int sensorId, int month, int year){
+        List<DataEntity> data = getListBySensorId(sensorId);
+        double ret = 0.0;
+        Calendar cal = Calendar.getInstance();
+        for (DataEntity entity : data) {
+            cal.setTimeInMillis(entity.getTime().getTime());
+            if (cal.get(Calendar.YEAR) == year && cal.get(Calendar.MONTH) == month){
+                if (entity.getValue() == 1){
+                    ret += 5;
+                }
+            }
+        }
+        return ret;
+    }
 }
