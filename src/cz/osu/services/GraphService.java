@@ -51,14 +51,27 @@ public class GraphService {
 //        }
 //        return months;
 //    }
+//    public List<Double> getPowerConsumptionPerYear(){
+//        List<SensorEntity> elSensors = getElSensors();
+//        List<Double> consumptionPerYear = new ArrayList<>();
+//        for (int i = 0; i < 12; i++) {
+//            consumptionPerYear.add(dataService.getPowerConsumptionPerMonth(elSensors.get(0).getId(), i, this.year));
+//        }
+//        return consumptionPerYear;
+//}
     public List<Double> getPowerConsumptionPerYear(){
         List<SensorEntity> elSensors = getElSensors();
         List<Double> consumptionPerYear = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            consumptionPerYear.add(dataService.getPowerConsumptionPerMonth(elSensors.get(0).getId(), i, this.year));
+            double summary = 0;
+            for (SensorEntity entity : elSensors) {
+                summary += dataService.getPowerConsumptionPerMonth(entity.getId(), i, this.year);
+            }
+            consumptionPerYear.add(summary);
         }
         return consumptionPerYear;
-}
+    }
+
 
     private List<SensorEntity> getElSensors(){
         List<SensorEntity> allSensors = sensorService.getList();
@@ -70,7 +83,7 @@ public class GraphService {
         return elSensors;
     }
 
-    private List<SensorEntity> getLightSensorsForRoom(int roomId){
+    public List<SensorEntity> getLightSensorsForRoom(int roomId){
         List<SensorEntity> allSensors = sensorService.getList();
         List<SensorEntity> lightSensors = new ArrayList<>();
         for (SensorEntity sensor : allSensors) {
@@ -85,11 +98,11 @@ public class GraphService {
         for (int i = 0; i < 12; i++) {
             double value = 0.0;
             Month month = Month.of(i+1);
-            double lengthOfMonth = month.length(false) * 24 * 60;
+            double lengthOfMonth = month.length(false);
             for (SensorEntity sensor : sensors) {
                 value += dataService.getLightsOnPerMonth(sensor.getId(), i, this.year);
             }
-            lights.add(value);
+            lights.add(value / lengthOfMonth);
         }
         System.out.println(lights);
         return lights;

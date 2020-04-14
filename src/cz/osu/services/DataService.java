@@ -5,6 +5,7 @@ import cz.osu.db.entity.DataEntity;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DataService {
@@ -48,6 +49,31 @@ public class DataService {
                 if (entity.getValue() == 1){
                     ret += 5;
                 }
+            }
+        }
+        return ret; //udělat průměr
+    }
+
+    public double lightsOnForLastWeek(int sensorId){
+        List<DataEntity> data = getListBySensorId(sensorId);
+        double ret = 0;
+
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int i = c.get(Calendar.DAY_OF_WEEK) - c.getFirstDayOfWeek();
+        c.add(Calendar.DATE, -i - 7);
+        Date start = c.getTime();
+        c.add(Calendar.DATE, 6);
+        Date end = c.getTime();
+        System.out.println(start + " - " + end);
+
+        Calendar cal = Calendar.getInstance();
+        for (DataEntity entity : data) {
+            cal.setTimeInMillis(entity.getTime().getTime());
+            Date entityTime = cal.getTime();
+            if (entityTime.after(start) && entityTime.before(end)){
+                ret += 5;
             }
         }
         return ret;

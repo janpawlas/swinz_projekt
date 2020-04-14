@@ -18,7 +18,9 @@ app.get('/', (req, res) => {
 const sensors = [
     { id: 1, name: 'Temperature Sensor', room: 1, data: getRandomInt(5, 40) },
     { id: 2, name: 'Electricity Sensor', room: 1, data: getRandomInt(0, 200) },
-    { id: 3, name: 'Temperature Sensor', room: 2, data: getRandomInt(5, 40) }
+    { id: 3, name: 'Temperature Sensor', room: 2, data: getRandomInt(5, 40) },
+    { id: 101, name: 'Light Sensor', room: 1, data: getRandomInt(0, 2) },
+    { id: 102, name: 'Light Sensor', room: 2, data: getRandomInt(0, 2) }
 ];
 
 function getUpdatedSensors() {
@@ -29,6 +31,9 @@ function getUpdatedSensors() {
                 break;
             case 'Temperature Sensor':
                 sensor.data = getRandomInt(5, 40);
+                break;
+            case 'Light Sensor':
+                sensor.data = getRandomInt(0, 2);
                 break;
             default:
         }

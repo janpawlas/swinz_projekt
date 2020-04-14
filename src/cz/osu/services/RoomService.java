@@ -2,6 +2,7 @@ package cz.osu.services;
 
 import cz.osu.db.RoomRepository;
 import cz.osu.db.entity.RoomEntity;
+import cz.osu.db.entity.SensorEntity;
 
 import java.util.List;
 
@@ -28,5 +29,15 @@ public class RoomService {
         entity.setTemp(temp);
         roomRepository.update(entity);
         return entity;
+    }
+    public double getLightsOnForLastWeekPerRoom(int roomId){
+        double ret = 0.0;
+        DataService dataService = new DataService();
+        GraphService graphService = new GraphService();
+        List<SensorEntity> sensors = graphService.getLightSensorsForRoom(roomId);
+        for (SensorEntity sensor : sensors) {
+            ret += dataService.lightsOnForLastWeek(sensor.getId());
+        }
+        return ret / 7; // / (7 * 24 * 60)
     }
 }
