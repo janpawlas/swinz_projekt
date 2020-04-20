@@ -33,6 +33,7 @@
           <th scope="col">Heat</th>
           <th scope="col">Room</th>
           <th scope="col">Current temp.</th>
+          <th scope="col">AVG lights ON for last week</th>
         </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@
                 </td>
                 <td>${room.name}</td>
                 <td>${dataParser.getTempByRoom(room.id).data}</td>
+                <td>${roomService.getLightsOnForLastWeekPerRoom(room.id)}</td>
             </tr>
         </c:forEach>
         </tbody>
