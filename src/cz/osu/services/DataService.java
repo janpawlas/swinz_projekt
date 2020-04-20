@@ -2,8 +2,10 @@ package cz.osu.services;
 
 import cz.osu.db.DataRepository;
 import cz.osu.db.entity.DataEntity;
+import cz.osu.db.entity.SensorEntity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,6 +76,25 @@ public class DataService {
             Date entityTime = cal.getTime();
             if (entityTime.after(start) && entityTime.before(end)){
                 ret += 5;
+            }
+        }
+        return ret;
+    }
+
+    public boolean isHeatOnAt(int sensorId, Timestamp timestamp){
+        List<DataEntity> data = getListBySensorId(sensorId);
+        boolean ret = false;
+        double firstValue = 0;
+        Calendar cal = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp.getTime());
+        for (DataEntity entity : data) {
+            cal.setTimeInMillis(entity.getTime().getTime());
+            if (cal.get(Calendar.YEAR) == calendar.get(Calendar.YEAR) && cal.get(Calendar.MONTH) == calendar.get(Calendar.MONTH) && cal.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)){
+                if(firstValue == 0) firstValue = entity.getValue();
+                if (entity.getValue() > firstValue){
+                    ret = true;
+                }
             }
         }
         return ret;

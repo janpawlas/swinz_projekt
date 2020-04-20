@@ -30,7 +30,7 @@
 
     <div class="container">
         <div>
-            <h2>Počet dní se zaplým vytápěním: </h2>${}
+            <h2>Počet dní se zaplým vytápěním: ${sensorService.daysWithHeatOnThisYear}</h2><br>
         </div>
         <div>
             <h2>Spotřeba energie za jednotlivé měsíce</h2>
