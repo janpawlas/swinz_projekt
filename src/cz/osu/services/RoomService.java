@@ -38,6 +38,6 @@ public class RoomService {
         for (SensorEntity sensor : sensors) {
             ret += dataService.lightsOnForLastWeek(sensor.getId());
         }
-        return ret / 7;
+        return Math.round(ret / 7.0);
     }
 }

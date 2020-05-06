@@ -1,6 +1,7 @@
 package cz.osu.services;
 
 import cz.osu.db.DataRepository;
+import cz.osu.db.RoomRepository;
 import cz.osu.db.entity.DataEntity;
 import cz.osu.db.entity.SensorEntity;
 

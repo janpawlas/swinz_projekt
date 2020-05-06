@@ -13,12 +13,10 @@ import java.util.*;
 import java.util.List;
 
 public class GraphService {
-    private DataService dataService;
-    private SensorService sensorService;
+    private final DataService dataService = new DataService();
+    private final SensorService sensorService = new SensorService();
     private int year;
     public GraphService() {
-        this.dataService = new DataService();
-        this.sensorService = new SensorService();
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         this.year = localDate.getYear();

@@ -32,8 +32,8 @@
         <tr>
           <th scope="col">Heat</th>
           <th scope="col">Room</th>
-          <th scope="col">Current temp.</th>
-          <th scope="col">AVG lights ON for last week</th>
+          <th scope="col">Current temp. [°C]</th>
+          <th scope="col">AVG lights ON for last week [min]</th>
         </tr>
         </thead>
         <tbody>

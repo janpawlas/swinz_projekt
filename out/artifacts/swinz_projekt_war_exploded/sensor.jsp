@@ -49,7 +49,7 @@
                                         <c:if test="${dataParser.getPowerByRoom(room.id).data == null}">
                                             0
                                         </c:if>${dataParser.getPowerByRoom(room.id).data} W</li>
-                                    <li class="list-group-item">AVG power consumption per day: ## W</li>
+
                                 </ul>
                                 <form class="form-inline mt-4" action="setTemperature" method="post">
                                     <div class="form-group mb-2">
